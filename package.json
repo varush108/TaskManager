@@ -1,0 +1,24 @@
+{
+    "name": "taskmanager",
+    "version": "1.0.0",
+    "description": "Task Manager web app with functionalities like due date, notes,priority. Implemented with node JS, bootstrap and HTML",
+    "main": "index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/varush108/TaskManager.git"
+    },
+    "author": "",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/varush108/TaskManager/issues"
+    },
+    "dependencies": {
+        "express": "^4.17.1",
+        "sequelize": "^5.21.6",
+        "sqlite3": "^4.1.1"
+    },
+    "homepage": "https://github.com/varush108/TaskManager#readme"
+}
