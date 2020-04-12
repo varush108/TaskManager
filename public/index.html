@@ -4,36 +4,72 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>To do list </title>
+    <title>Task Manager </title>
     <script defer async src="script.js"></script>
-    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
     <link rel='stylesheet' type='text/css' media='screen' href='main.css'>
-    <link rel="stylesheet" href="bootstrap.css">
 
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="font-awesome-4.7.0/css/font-awesome.min.css">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 </head>
 
-<body>
+<body onload="setDate();">
 
 
 
     <div class="container ">
-        <h1>TO DO LIST</h1>
-        <div class="row">
-            <div class="col-md-12">
-                <p><b>Task</b></p>
-            </div>
-            <div class="col-md-10" style="float:left;">
+        <h1>Task Manager</h1>
 
-                <input class="form-control" id="inpNewTask" placeholder="Task">
+        <div id="taskForm">
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="title"><strong>Title</strong></label>
+                    <input type="text" required class="form-control" id="title" placeholder="Task Title">
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="priority"><strong>Priority</strong></label>
+                    <select class="form-control">
+                    <option value="low">Low</option>
+                    <option selected value="medium">Medium</option>
+                    <option value="high">High</option>
+                </select>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-9">
+                    <label for="description"><strong>Description</strong></label>
+                    <input type="text" required class="form-control" id="description" placeholder="Task Description">
+                </div>
+                <div class="form-group col-md-3">
+                    <label for="dueDate"><strong>Due Date</strong></label>
+                    <input type="date" class="form-control" id="dueDate">
+                </div>
+            </div>
+            <div id="notesContainer">
+                <div class="form-row">
+                    <div class="form-group col-md-12">
+                        <label for="notes"><strong>Notes</strong></label>
+                        <input type="text" required class="form-control" id="notes" name="notes" placeholder="Notes">
+
+                    </div>
+                </div>
+
+
+
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-1">
+                    <button class="btn btn-info btn-lg" onclick="addNote()">
+                        <span class="fa fa-plus-circle fa-lg"></span> Add Note
+                    </button>
+
+                </div>
             </div>
 
-            <div class="col-md-2" style="float:left;">
-                <button class="btn btn-primary " onclick="addTask();">Add</button>
-                <button class="btn btn-danger " onclick=" deleteTask(); ">Clear</button>
-            </div>
         </div>
+
         <br>
         <!-- <div class="row" id="taskListContainer">
 
