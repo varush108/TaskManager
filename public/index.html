@@ -5,7 +5,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Task Manager </title>
-    <script defer async src="script.js"></script>
+    <script defer async src="JS/taksUtil.js"></script>
+    <script defer async src="JS/script.js"></script>
+    <script defer async src="JS/elementsUtil.js"></script>
+    <script defer async src="JS/sortUtil.js"></script>
+
     <link rel='stylesheet' type='text/css' media='screen' href='main.css'>
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
@@ -15,7 +19,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 </head>
 
-<body onload="setDate();">
+<body>
 
 
 
@@ -52,7 +56,6 @@
                     <div class="form-group col-md-12">
                         <label for="notes"><strong>Notes</strong></label>
                         <input type="text" required class="form-control" id="notes" name="notes" placeholder="Notes">
-
                     </div>
                 </div>
 
@@ -69,7 +72,31 @@
             </div>
 
         </div>
-
+        <div class="d-flex flex-row-reverse bd-highlight mb-3" id="sortBar">
+            <div class="dropdown sortItem">
+                <button class="btn btn-sm btn btn-outline-dark dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <span class="fa fa-calendar"></span> Sort By Date
+                </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <button class=" btn-outline-dark dropdown-item " onclick="sortListByDate('desc')">
+                        <span class="fa fa-long-arrow-down"></span> Descending
+                    </button>
+                    <button class=" btn-outline-dark dropdown-item " onclick="sortListByDate('asc')">
+                        <span class="fa fa-long-arrow-up"></span> Ascending
+                    </button>
+                </div>
+            </div>
+            <div class="sortItem">
+                <button class="btn btn-sm btn-outline-dark" onclick="sortListByPriority()">
+                    <span class="fa fa-list"></span> Sort By Priority
+                </button>
+            </div>
+            <div class="sortItem">
+                <button class="btn btn-sm btn-outline-dark" onclick="sortListByCompleted()">
+                    <span class="fa fa-check"></span> Sort By Status
+                </button>
+            </div>
+        </div>
         <br>
         <!-- <div class="row" id="taskListContainer">
 
@@ -81,53 +108,7 @@
             </ul>
         </div> -->
 
-        <div class="accordion" id="accordionExample">
-            <div class="card">
-                <div class="card-header" id="headingOne">
-                    <div style="float:left">
-                        <h2 class="mb-0">
-                            <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
-                 TASK 1
-                  </button>
-
-                        </h2>
-
-                    </div>
-                    <div style="float:right">
-                        <h5 class="mb-0"> <span class="badge badge-success">HIGH PRIORITY</span></h5>
-                        <h5 class="mb-0"> <span class="badge badge-info">DUE ON 13/11/21</span></h5>
-                    </div>
-
-
-                </div>
-
-
-                <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
-                    <div class="card-body">
-
-                        <h4 class="card-title">Task description
-                        </h4>
-                        <div class></div>
-                        <div class="row" id="taskListContainer">
-                            <ul class="list-group" id="ulTaskList">
-                                <li class="list-group-item " data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">NOTE 1</li>
-                                <li class="list-group-item " data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">NOTE 1</li>
-                                <li class="list-group-item " data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">NOTE 1</li>
-                                <li class="list-group-item " data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">NOTE 1</li>
-                            </ul>
-                        </div>
-                        <br>
-                        <h5>Add A NOTE : </h5>
-                        <div class="input-group mb-3">
-                            <input type="text" class="form-control" placeholder="NOTE TEXT" aria-label="Recipient's username" aria-describedby="button-addon2">
-                            <div class="input-group-append">
-                                <button class="btn btn-primary" type="button" id="button-addon2">ADD</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
+        <div class="accordion" id="taskContainer">
 
         </div>
 
@@ -135,6 +116,56 @@
 
     </div>
 
+    <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editModalLabel">Edit Task</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+                </div>
+                <div class="modal-body">
+
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="priority"><strong>Priority</strong></label>
+                            <select class="form-control" id="priorityEdit">
+                            <option value="low">Low</option>
+                            <option selected value="medium">Medium</option>
+                            <option value="high">High</option>
+                        </select>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="dueDateEdit"><strong>Due Date</strong></label>
+                            <input type="date" class="form-control" id="dueDateEdit">
+                        </div>
+
+                    </div>
+                    <div class="form-group">
+                        <div class="form-check">
+                            <input type="hidden" id="taskId" />
+                            <input class="form-check-input" type="checkbox" id="completedEdit">
+                            <label class="" for="completedEdit">
+                                Completed
+                              </label>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save Changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer class="footer">
+        <div class="container">
+            <span class="text-muted">Developed by Aarush Verma</span>
+        </div>
+    </footer>
 </body>
+
 
 </html>
