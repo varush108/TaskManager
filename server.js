@@ -16,7 +16,7 @@ db.sync()
     .then(() => {
 
 
-        app.listen()
+        app.listen(80)
     })
     .catch((err) => {
         console.error(err)
