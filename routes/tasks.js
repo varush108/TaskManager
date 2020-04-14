@@ -128,7 +128,7 @@ route.patch('/:id', async(req, res) => {
     }
     let completed = (req.body.completed === 'true')
     task.priority = req.body.priority
-    task.completed = completed
+    task.completed = req.body.completed
     task.due = req.body.due
 
     await task.save()

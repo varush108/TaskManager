@@ -44,6 +44,20 @@ async function addNewTaskJson(reqBody) {
     return resp
 }
 
+async function addNewNoteJson(reqBody, id) {
+
+    const resp = await fetch('/tasks/' + id + '/notes', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(reqBody)
+    })
+
+
+    return resp
+}
+
 async function editTaskJson(reqBody, id) {
 
     console.log("id  = " + id)

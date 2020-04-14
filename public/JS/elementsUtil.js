@@ -19,11 +19,13 @@ async function createTask(task) {
 
     tasks += '<button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapse' + task.id + '"  aria-controls="collapseOne">'
     tasks += '' + task.title.toUpperCase() + ''
+    let completed = ""
+    let completedClass = ""
     if (task.completed) {
-        tasks += '<span class="fa fa-check" style="color: red;">completed</span>'
-    } else {
-        tasks += '<span class="" style="color: red;" id="completed' + task.id + '"></span>'
+        completed = "completed"
+        completedClass = "fa fa-check"
     }
+    tasks += '<span class="' + completedClass + '" style="color: red;" id="completed' + task.id + '">' + completed + '</span>'
     tasks += '</button>'
     tasks += '</h2>'
     tasks += '</div>'
@@ -62,9 +64,9 @@ async function createTask(task) {
     tasks += '<br>'
     tasks += '<h5>Add A NOTE : </h5>'
     tasks += '<div class="input-group mb-3">'
-    tasks += '<input type="text" class="form-control" placeholder="NOTE TEXT" aria-label="Recipients username" aria-describedby="button-addon2">'
+    tasks += '<input type="text" class="form-control" id="noteText' + task.id + '" placeholder="NOTE TEXT" >'
     tasks += '<div class="input-group-append">'
-    tasks += '<button class="btn btn-primary" type="button" id="button-addon2">ADD</button>'
+    tasks += '<button class="btn btn-primary" type="button" id="button-addon2" onclick="addNoteToTask(' + task.id + ')">ADD</button>'
     tasks += '</div>'
     tasks += '</div>'
     tasks += '</div>'
