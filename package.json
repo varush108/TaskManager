@@ -2,8 +2,9 @@
     "name": "taskmanager",
     "version": "1.0.0",
     "description": "Task Manager web app with functionalities like due date, notes,priority. Implemented with node JS, bootstrap and HTML",
-    "main": "index.js",
+    "main": "server.js",
     "scripts": {
+        "start": "node server.js",
         "test": "echo \"Error: no test specified\" && exit 1"
     },
     "repository": {
