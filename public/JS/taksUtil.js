@@ -24,25 +24,14 @@ async function editTask(id) {
     } else {
         completed.checked = false
     }
+    document.getElementById('taskIdEdit').value = taskDetails.id
 
     $('#editModal').modal('show')
 
 }
 
-async function addNewTodoJson(task, done) {
-    let reqBody = {
-        title: 'task insert final',
-        description: 'task description',
-        priority: 'medium',
-        due: '2020-09-20',
-        notes: [{
-                text: 'Note test'
-            },
-            {
-                text: 'Note test 2',
-            }
-        ]
-    }
+async function addNewTaskJson(reqBody) {
+
     const resp = await fetch('/tasks', {
         method: 'POST',
         headers: {
@@ -51,5 +40,21 @@ async function addNewTodoJson(task, done) {
         body: JSON.stringify(reqBody)
     })
 
-    console.log(resp)
+
+    return resp
+}
+
+async function editTaskJson(reqBody, id) {
+
+    console.log("id  = " + id)
+    const resp = await fetch('/tasks/' + id + '', {
+        method: 'PATCH',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(reqBody)
+    })
+
+
+    return resp
 }

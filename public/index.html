@@ -34,7 +34,7 @@
                 </div>
                 <div class="form-group col-md-6">
                     <label for="priority"><strong>Priority</strong></label>
-                    <select class="form-control">
+                    <select class="form-control" id="priority">
                     <option value="low">Low</option>
                     <option selected value="medium">Medium</option>
                     <option value="high">High</option>
@@ -44,18 +44,18 @@
             <div class="form-row">
                 <div class="form-group col-md-9">
                     <label for="description"><strong>Description</strong></label>
-                    <input type="text" required class="form-control" id="description" placeholder="Task Description">
+                    <input type="text" class="form-control" id="description" placeholder="Task Description">
                 </div>
                 <div class="form-group col-md-3">
                     <label for="dueDate"><strong>Due Date</strong></label>
-                    <input type="date" class="form-control" id="dueDate">
+                    <input type="date" required class="form-control" id="dueDate">
                 </div>
             </div>
             <div id="notesContainer">
                 <div class="form-row">
                     <div class="form-group col-md-12">
                         <label for="notes"><strong>Notes</strong></label>
-                        <input type="text" required class="form-control" id="notes" name="notes" placeholder="Notes">
+                        <input type="text" class="form-control" id="notes" name="notes" placeholder="Notes">
                     </div>
                 </div>
 
@@ -63,13 +63,23 @@
 
             </div>
             <div class="form-row">
-                <div class="form-group col-md-1">
+                <div class="form-group col-md-6">
                     <button class="btn btn-info btn-lg" onclick="addNote()">
                         <span class="fa fa-plus-circle fa-lg"></span> Add Note
                     </button>
 
                 </div>
+
             </div>
+
+            <div class="form-group " style="text-align: right;">
+                <button class="btn btn-primary btn-block" type="submit" onclick="addNewTask()">
+                    <span class="fa fa-tasks fa-lg"></span> Add Task
+                </button>
+
+            </div>
+
+
 
         </div>
         <div class="d-flex flex-row-reverse bd-highlight mb-3" id="sortBar">
@@ -144,7 +154,7 @@
                     </div>
                     <div class="form-group">
                         <div class="form-check">
-                            <input type="hidden" id="taskId" />
+                            <input type="hidden" id="taskIdEdit" />
                             <input class="form-check-input" type="checkbox" id="completedEdit">
                             <label class="" for="completedEdit">
                                 Completed
@@ -155,7 +165,26 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save Changes</button>
+                    <button type="button" class="btn btn-primary" onclick="editTaskDetails()">Save Changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" tabindex="-1" role="dialog" id="taskAddedModal">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">TaskAdded</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+                </div>
+                <div class="modal-body">
+                    <p>Task Successfully Added</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                 </div>
             </div>
         </div>

@@ -79,3 +79,12 @@ function sortListByDate(order) {
         }
     }
 }
+
+function dateOrder(order, date1, date2) {
+
+    if (order === 'asc') {
+        return date2.getTime() < date1.getTime()
+    } else {
+        return date2.getTime() > date1.getTime()
+    }
+}

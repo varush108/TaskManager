@@ -1,10 +1,17 @@
 let noteId = 0
 
+function htmlToElement(html) {
+    var template = document.createElement('template');
+    html = html.trim(); // Never return a text node of whitespace as the result
+    template.innerHTML = html;
+    return template.content.firstChild
+}
+
 async function createTask(task) {
     let dueDate = new Date(task.due)
     let badge = "warning"
     let date = dueDate.getDate() + "/" + (dueDate.getMonth() + 1) + "/" + dueDate.getFullYear()
-    console.log(typeof task)
+
     let tasks = '<div class="card">'
     tasks += '<div class="card-header" id="heading' + task.id + '">'
     tasks += '<div style="float:left">'
@@ -15,7 +22,7 @@ async function createTask(task) {
     if (task.completed) {
         tasks += '<span class="fa fa-check" style="color: red;">completed</span>'
     } else {
-        tasks += '<span class="" style="color: red;"></span>'
+        tasks += '<span class="" style="color: red;" id="completed' + task.id + '"></span>'
     }
     tasks += '</button>'
     tasks += '</h2>'
@@ -27,8 +34,8 @@ async function createTask(task) {
     } else if (task.priority == 'high') {
         badge = 'danger'
     }
-    tasks += '<h5 class="mb-0"> <span class="badge badge-' + badge + '">' + task.priority.toUpperCase() + ' PRIORITY</span></h5>'
-    tasks += '<h5 class="mb-0"> <span class="badge badge-info">DUE ON ' + date + '</span></h5>'
+    tasks += '<h5 class="mb-0"> <span class="badge badge-' + badge + '" id="priority' + task.id + '">' + task.priority.toUpperCase() + ' PRIORITY</span></h5>'
+    tasks += '<h5 class="mb-0"> <span class="badge badge-info" id="dueDate' + task.id + '">DUE ON ' + date + '</span></h5>'
     tasks += '</div>'
     tasks += '</div>'
     tasks += '<div id="collapse' + task.id + '" class="collapse" aria-labelledby="heading' + task.id + '" data-parent="#taskContainer">'
@@ -46,6 +53,7 @@ async function createTask(task) {
     tasks += '<hr>'
     tasks += '<div class="row" id="taskListContainer' + task.id + '">'
     tasks += '<ul class="list-group" id="ulTaskList' + task.id + '">'
+
     for (let note of task.notes) {
         tasks += '<li class="list-group-item " >' + note.text + '</li>'
     }
@@ -67,12 +75,7 @@ async function createTask(task) {
 }
 
 
-function htmlToElement(html) {
-    var template = document.createElement('template');
-    html = html.trim(); // Never return a text node of whitespace as the result
-    template.innerHTML = html;
-    return template.content.firstChild
-}
+
 
 function addNote() {
     let notesContainer = document.getElementById("notesContainer")

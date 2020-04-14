@@ -78,7 +78,7 @@ route.post('/', async(req, res) => {
         }
     }
 
-    res.status(201).send({ success: 'New task added', data: newTask, notes: noteinsert })
+    res.status(201).json(JSON.stringify({ success: 'New task added', data: newTask, notes: noteinsert }))
 })
 
 route.post('/:id/notes', async(req, res) => {
@@ -126,11 +126,7 @@ route.patch('/:id', async(req, res) => {
     if (isNaN(Date.parse(req.body.due))) {
         return res.status(400).send({ error: 'Task due date not provided' })
     }
-    let completed = false
-    if (req.body.completed === 'true') {
-        completed = true
-
-    }
+    let completed = (req.body.completed === 'true')
     task.priority = req.body.priority
     task.completed = completed
     task.due = req.body.due
