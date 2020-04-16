@@ -1,3 +1,7 @@
+window.onload = function() {
+    $('#title').tooltip('disable')
+    setDate()
+}
 getTasks().then(function(value) {
 
     for (let task of value) {
@@ -5,10 +9,6 @@ getTasks().then(function(value) {
     }
 })
 
-window.onload = function() {
-    $('#title').tooltip('disable')
-    setDate()
-}
 
 function setDate() {
     const today = new Date()
